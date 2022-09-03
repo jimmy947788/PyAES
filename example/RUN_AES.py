@@ -13,14 +13,21 @@ packet.Message = "asdsaddddddddddddddddddddddddd" #"".join(['*'] * 960)
 
 print("raw data:", packet.Fluent())
 print()
-encrypt = myAES.EncryptBuffer(packet.Fluent())
-print("encrypt:", encrypt)
+ciphertext = myAES.EncryptBuffer(packet.Fluent())
+print("encrypt:", ciphertext)
 print()
 
-decrypt= myAES.DecryptBuffer(encrypt)
-print("decrypt:",decrypt)
+# ciphertext 是 str list 沒有辦法給socket send
+# 透過這樣轉換 bytearray 才能送出
+ascii_list = [ord(data) for data in ciphertext]
+send_data = bytearray(ascii_list)
+    
+
+plaintext= myAES.DecryptBuffer(ciphertext)
+print(f"decrypt:{plaintext}, type:{ type(plaintext)}")
 print()
 
-packet2 = StrPacket(decrypt)
+packet2 = StrPacket(plaintext)
 print(f"MAC={packet2.MAC}({len(packet2.MAC)}), IP={packet2.IP}({len(packet2.IP)}), \
       DoWork={packet2.DoWork}({len(packet2.DoWork)}),Message={packet2.Message}({len(packet2.Message)})")
+
