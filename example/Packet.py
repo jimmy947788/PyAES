@@ -3,9 +3,13 @@ class StrPacket():
     def __init__(self, data=None): 
         str_data = "" if data is None else "".join(data)
         self._mac = "" if data is None else str_data[0:20]
+        self._mac =  self._mac.replace('\0', '')
         self._ip = "" if data is None else str_data[20:40]
+        self._ip =  self._ip.replace('\0', '')
         self._doWork = "" if data is None else str_data[40:64] 
+        self._doWork =  self._doWork.replace('\0', '')
         self._message = "" if data is None else str_data[64:]
+        self._message =  self._message.replace('\0', '')
         
     @property
     def MAC(self):

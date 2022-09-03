@@ -42,11 +42,36 @@ file. By using, distributing, or contributing to this project, you agree to the
 terms and conditions of this license.
 
 
-## Test call
+## 使用範例
 
+python 範例程式在 [RUN_AES.py](example\RUN_AES.py)
 ```python
-import cmake_example
-cmake_example.add(1, 2)
+from PyAES import CAES, KeySize
+from Packet import StrPacket
+
+AESKey = "AES Encrypt Decrypt"
+myAES = CAES()
+myAES.SetKeys(KeySize.BIT128, AESKey)
+
+packet = StrPacket()
+packet.MAC =  "00-0C-29-D2-DC-FE"#"".join(['A'] * 20)
+packet.IP = "192.168.0.156" #"".join(['B'] * 20)
+packet.DoWork = "GetDriveInfo" #"".join(['C'] * 24)
+packet.Message = "asdsaddddddddddddddddddddddddd" #"".join(['*'] * 960)
+
+print("raw data:", packet.Fluent())
+print()
+encrypt = myAES.EncryptBuffer(packet.Fluent())
+print("encrypt:", encrypt)
+print()
+
+decrypt= myAES.DecryptBuffer(encrypt)
+print("decrypt:",decrypt)
+print()
+
+packet2 = StrPacket(decrypt)
+print(f"MAC={packet2.MAC}({len(packet2.MAC)}), IP={packet2.IP}({len(packet2.IP)}), \
+      DoWork={packet2.DoWork}({len(packet2.DoWork)}),Message={packet2.Message}({len(packet2.Message)})")
 ```
 
 [`cibuildwheel`]:          https://cibuildwheel.readthedocs.io

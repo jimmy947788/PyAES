@@ -1,12 +1,9 @@
-from enum import Enum
 from PyAES import CAES, KeySize
-from typing import List
 from Packet import StrPacket
 
-
 AESKey = "AES Encrypt Decrypt"
-my_aes = CAES()
-my_aes.SetKeys(KeySize.BIT128, AESKey)
+myAES = CAES()
+myAES.SetKeys(KeySize.BIT128, AESKey)
 
 packet = StrPacket()
 packet.MAC =  "00-0C-29-D2-DC-FE"#"".join(['A'] * 20)
@@ -16,11 +13,11 @@ packet.Message = "asdsaddddddddddddddddddddddddd" #"".join(['*'] * 960)
 
 print("raw data:", packet.Fluent())
 print()
-encrypt = my_aes.EncryptBuffer(packet.Fluent())
+encrypt = myAES.EncryptBuffer(packet.Fluent())
 print("encrypt:", encrypt)
 print()
 
-decrypt= my_aes.DecryptBuffer(encrypt)
+decrypt= myAES.DecryptBuffer(encrypt)
 print("decrypt:",decrypt)
 print()
 
