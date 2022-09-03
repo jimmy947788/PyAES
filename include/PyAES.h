@@ -63,7 +63,7 @@ public:
 	CAES();
 	virtual ~CAES();
 
-	bool SetKeys(int keySize, const char* sKey);
+	bool SetKeys(KeySize keySize, const char* sKey);
 	std::vector<char> EncryptBuffer(const std::vector<char>& input);
 	std::vector<char> DecryptBuffer(const std::vector<char>& input);
 	//BOOL DecryptFileLoadingData(TCHAR* SourceFile,set<string> * pApiData);

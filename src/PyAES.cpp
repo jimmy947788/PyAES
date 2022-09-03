@@ -89,20 +89,20 @@ CAES::~CAES()
 }
 
 
-bool CAES::SetKeys(int keySize, const char* sKey)
+bool CAES::SetKeys(KeySize keySize, const char* sKey)
 {
 	int i, j;
 	switch (keySize)
 	{
-	case (int)KeySize::BIT128:
+	case KeySize::BIT128:
 		this->Nk = 4;//128÷8÷4
 		this->Nr = 10;//Nr = Nk + 6;
 		break;
-	case (int)KeySize::BIT192:
+	case KeySize::BIT192:
 		this->Nk = 6;//192÷8÷4
 		this->Nr = 12;//Nr = Nk + 6;
 		break;
-	case (int)KeySize::BIT256:
+	case KeySize::BIT256:
 	default:
 		this->Nk = 8;//256÷8÷4
 		this->Nr = 14;//Nr = Nk + 6;
@@ -641,12 +641,17 @@ PYBIND11_MODULE(PyAES, m) {
 
 	// define add function
 	//m.def("add", &add, "A function which adds two numbers");
-
 	// bindings to Pet class
 	py::class_<CAES>(m, "CAES")
 		.def(py::init<>())
 		.def("SetKeys", &CAES::SetKeys)
 		.def("EncryptBuffer", &CAES::EncryptBuffer)
 		.def("DecryptBuffer", &CAES::DecryptBuffer);
+		
+	py::enum_<KeySize>(m, "KeySize", py::arithmetic())
+        .value("BIT128", KeySize::BIT128)
+        .value("BIT192", KeySize::BIT192)
+        .value("BIT256", KeySize::BIT256)
+        .export_values();
 
 }

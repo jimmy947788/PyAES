@@ -13,7 +13,7 @@ PLAT_TO_CMAKE = {
     "win-arm32": "ARM",
     "win-arm64": "ARM64",
 }
-
+__version__ = '0.7.8'
 
 # A CMakeExtension needs a sourcedir instead of a file list.
 # The name must be the _single_ output extension from the CMake build.
@@ -122,7 +122,7 @@ class CMakeBuild(build_ext):
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="PyAES",
-    version="0.0.1",
+    version=__version__,
     author="Jimmy Wu",
     author_email="jimmy.wu@daedalus.com.tw",
     description="A AES lib using pybind11 and CMake",
