@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
 project ("PyAES" LANGUAGES CXX)
 
-include_directories(include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_subdirectory(pybind11)
 pybind11_add_module(PyAES src/PyAES.cpp)
 

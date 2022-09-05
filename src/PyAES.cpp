@@ -9,7 +9,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "..\include\PyAES.h"
+#include "PyAES.h"
 
 /////////////////////////////////
 
